@@ -27,7 +27,7 @@ export default {
         bilangan: "",
         terbilang: "",
         copied:false,
-        buruPng: buru
+        buruPng: buru,
     }),
     methods:{
         convert(){
