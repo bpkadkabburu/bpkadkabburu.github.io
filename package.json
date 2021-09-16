@@ -1,0 +1,22 @@
+{
+  "name": "website-resmi-bpkad",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@develoka/angka-terbilang-js": "^1.4.2",
+    "@popperjs/core": "^2.9.3",
+    "bootstrap": "^5.1.0",
+    "vue": "^3.0.5",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.3.0",
+    "@vue/compiler-sfc": "^3.0.5",
+    "vite": "^2.4.4"
+  }
+}
