@@ -2,7 +2,7 @@
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
             <a href="/" class="logo d-flex align-items-center">
-                <img :src="buruLogo" alt="Kabupaten Buru Logo">
+                <img :src="bpkadLogo" alt="Kabupaten Buru Logo">
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
@@ -45,11 +45,11 @@
     </header>
 </template>
 <script>
-import buruLogo from "../assets/images/Logo.gif"
+import bpkadLogo from "../assets/images/Logo.gif"
 import banner from "../assets/images/Banner.jpg"
 export default{
     data:() => ({
-        buruLogo,
+        bpkadLogo,
         banner
     })
 }
