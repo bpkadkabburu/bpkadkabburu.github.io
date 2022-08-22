@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import buru from "../../assets/buru.png"
+import buru from "../../assets/images/buru.png"
 import angkaTerbilang from '@develoka/angka-terbilang-js';
 export default {
     data: () => ({

@@ -1,21 +1,11 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import Index from "../pages/Index.vue"
-import Konversi from "../pages/konversi/Index.vue"
-import Transverse from "../pages/transverse/Index.vue"
+import Index from "../pages/beranda/Index.vue"
 
 const routes = [
     {
         path:'/',
         component:Index
     },
-    {
-        path:'/konversi',
-        component:Konversi
-    },
-    {
-        path:'/transverse',
-        component:Transverse
-    }
 ];
 
 const router = createRouter({
