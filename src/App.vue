@@ -21,6 +21,11 @@ export default{
       once: true,
       mirror: false
     })
+  },
+  watch:{
+    '$route'(to, from){
+      document.title = `${to.meta.title} - BPKAD KABUPATEN BURU` || 'BPKAD KABUPATEN BURU'
+    }
   }
 }
 </script>

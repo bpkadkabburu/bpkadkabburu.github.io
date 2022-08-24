@@ -6,38 +6,65 @@
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                    <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><router-link to="#" class="nav-link active">Beranda</router-link></li>
                     <li class="dropdown">
                         <a href="#">
-                            <span>Drop Down</span>
+                            <span>Profil</span>
                             <i class="bi bi-chevron-down"></i>
                         </a>
                         <ul>
-                            <li><a href="#">Drop Down 1</a></li>
-                            <li class="dropdown">
-                                <a href="#">
-                                    <span>Deep Drop Down</span>
-                                    <i class="bi bi-chevron-right"></i>
-                                </a>
-                                <ul>
-                                    <li><a href="#">Deep Drop Down 1</a></li>
-                                    <li><a href="#">Deep Drop Down 2</a></li>
-                                    <li><a href="#">Deep Drop Down 3</a></li>
-                                    <li><a href="#">Deep Drop Down 4</a></li>
-                                    <li><a href="#">Deep Drop Down 5</a></li>
-                                </ul>
+                            <li>
+                                <router-link to="#"><span>Visi & Misi</span></router-link>
                             </li>
-                            <li><a href="#">Drop Down 2</a></li>
-                            <li><a href="#">Drop Down 3</a></li>
-                            <li><a href="#">Drop Down 4</a></li>
+                            <li>
+                                <router-link to="#"><span>Tugas Pokok dan Fungsi</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Struktur Organisasi</span></router-link>
+                            </li>
                         </ul>
                     </li>
-                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#">
+                            <span>Organisasi</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <router-link to="#"><span>Sekretariat</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Bidang Anggaran</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Bidang Perbendaharaan</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Bidang Akuntansi</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Bidang Aset Daerah</span></router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">
+                            <span>Informasi Publik</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <router-link to="#"><span>APBD</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Laporan Realisasi</span></router-link>
+                            </li>
+                            <li>
+                                <router-link to="#"><span>Laporan Keuangan</span></router-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><router-link to="#" class="nav-link">Kontak</router-link></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>

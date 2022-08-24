@@ -154,7 +154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/devtools-api@npm:^6.1.4":
+"@vue/devtools-api@npm:^6.0.0-beta.11, @vue/devtools-api@npm:^6.1.4":
   version: 6.2.1
   resolution: "@vue/devtools-api@npm:6.2.1"
   checksum: 34765af0be9b0cc7e3def73b2792b1514e3c348852c5a7503fe07d013f0e907af6c27c0a32c0637dd748caf37c075af8e53ca3220433e0bd34b6f3405f358272
@@ -1698,6 +1698,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vuex@npm:next":
+  version: 4.0.2
+  resolution: "vuex@npm:4.0.2"
+  dependencies:
+    "@vue/devtools-api": ^6.0.0-beta.11
+  peerDependencies:
+    vue: ^3.0.2
+  checksum: d7c03f0afcbad045ef58921a4baa9ec23bc12c71dbaf1317f1df94e7d8740ce839b9fac48ec775955ce7a8893dceb7217bc05e45421fc6bacc559ed3541e6052
+  languageName: node
+  linkType: hard
+
 "website-resmi-bpkad@workspace:.":
   version: 0.0.0-use.local
   resolution: "website-resmi-bpkad@workspace:."
@@ -1712,6 +1723,7 @@ __metadata:
     vite: ^3.0.8
     vue: ^3.2.37
     vue-router: ^4.1.3
+    vuex: next
   languageName: unknown
   linkType: soft
 

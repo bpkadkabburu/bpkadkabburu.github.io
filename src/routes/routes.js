@@ -4,7 +4,10 @@ import Index from "../pages/beranda/Index.vue"
 const routes = [
     {
         path:'/',
-        component:Index
+        component:Index,
+        meta:{
+            title: 'Beranda'
+        }
     },
 ];
 
