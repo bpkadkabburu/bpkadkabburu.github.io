@@ -6,21 +6,21 @@
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><router-link to="#" class="nav-link active">Beranda</router-link></li>
+                    <li><router-link :to="{name:'beranda'}" class="nav-link" :class="[menuActive === 'beranda' ? 'active' : '']">Beranda</router-link></li>
                     <li class="dropdown">
-                        <a href="#">
+                        <a href="#" :class="[menuActive === 'profil' ? 'active' : '']">
                             <span>Profil</span>
                             <i class="bi bi-chevron-down"></i>
                         </a>
                         <ul>
                             <li>
-                                <router-link to="#"><span>Visi & Misi</span></router-link>
+                                <router-link :to="{name:'profil', params:{menu:'visi-misi'}}"><span>Visi & Misi</span></router-link>
                             </li>
                             <li>
-                                <router-link to="#"><span>Tugas Pokok dan Fungsi</span></router-link>
+                                <router-link :to="{name:'profil', params:{menu:'tugas-pokok-dan-fungsi'}}"><span>Tugas Pokok dan Fungsi</span></router-link>
                             </li>
                             <li>
-                                <router-link to="#"><span>Struktur Organisasi</span></router-link>
+                                <router-link :to="{name:'profil', params:{menu:'struktur-organisasi'}}"><span>Struktur Organisasi</span></router-link>
                             </li>
                         </ul>
                     </li>
@@ -72,12 +72,18 @@
     </header>
 </template>
 <script>
+import { mapState } from "vuex";
 import bpkadLogo from "../assets/images/Logo.gif"
 import banner from "../assets/images/Banner.jpg"
 export default{
     data:() => ({
         bpkadLogo,
         banner
-    })
+    }),
+    computed:{
+        ...mapState({
+            menuActive: state => state.menu.active
+        })
+    }
 }
 </script>

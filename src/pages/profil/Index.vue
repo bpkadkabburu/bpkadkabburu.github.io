@@ -1,13 +1,32 @@
 <template>
+    <div id="profil">
+        <Breadcrumb />
+        <div>
+            {{params}}
+        </div>
+    </div>
 </template>
 <script>
+import Breadcrumb from '../../components/Breadcrumb.vue';
 export default{
-    mounted:{
-
+    data:() => ({
+        params:''
+    }),
+    components:{
+        Breadcrumb
+    },
+    created() {
+        this.$watch(
+            () => this.$route.params,
+            (toParams, previousParams) => {
+                this.getParam(toParams)
+            },
+            {immediate: true}
+        )
     },
     methods:{
-        async getParam(){
-            
+        getParam(to){
+            this.params = to.menu
         }
     }
 }
