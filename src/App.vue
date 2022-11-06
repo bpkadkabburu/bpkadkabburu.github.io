@@ -12,7 +12,7 @@ import AOS from "aos"
 export default{
   components:{
     Navbar,
-    Footer
+    Footer,
   },
   mounted(){
     AOS.init({

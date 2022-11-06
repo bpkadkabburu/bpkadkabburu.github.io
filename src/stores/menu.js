@@ -1,10 +1,7 @@
-export default listMenu = [
-    {
-        'name':'Beranda',
-        'link':'/',
-    },
-    {
-        'name':'Beranda',
-        'link':'/',
-    }
-]
+import { defineStore } from "pinia"
+
+export const useMenuStore = defineStore('menu', {
+    state: () => ({
+        'active':''
+    })
+})

@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4 img-fluid" :src="buruPng" alt="kabupaten buru" height="125" width="125">
             <h2>Konversi Bilangan</h2>
         </div>
         <div class="row">
@@ -20,14 +19,12 @@
 </template>
 
 <script>
-import buru from "../../assets/images/buru.png"
 import angkaTerbilang from '@develoka/angka-terbilang-js';
 export default {
     data: () => ({
         bilangan: "",
         terbilang: "",
         copied:false,
-        buruPng: buru,
     }),
     methods:{
         convert(){

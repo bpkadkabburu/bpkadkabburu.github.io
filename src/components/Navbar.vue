@@ -6,9 +6,9 @@
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><router-link :to="{name:'beranda'}" class="nav-link" :class="[menuActive === 'beranda' ? 'active' : '']">Beranda</router-link></li>
+                    <li><router-link :to="{name:'beranda'}" class="nav-link" :class="[menuStore.active === 'beranda' ? 'active' : '']">Beranda</router-link></li>
                     <li class="dropdown">
-                        <a href="#" :class="[menuActive === 'profil' ? 'active' : '']">
+                        <a href="#" :class="[menuStore.active === 'profil' ? 'active' : '']">
                             <span>Profil</span>
                             <i class="bi bi-chevron-down"></i>
                         </a>
@@ -72,7 +72,8 @@
     </header>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapStores } from "pinia";
+import { useMenuStore } from "../stores/menu";
 import bpkadLogo from "../assets/images/Logo.gif"
 import banner from "../assets/images/Banner.jpg"
 export default{
@@ -81,9 +82,7 @@ export default{
         banner
     }),
     computed:{
-        ...mapState({
-            menuActive: state => state.menu.active
-        })
+        ...mapStores(useMenuStore)
     }
 }
 </script>

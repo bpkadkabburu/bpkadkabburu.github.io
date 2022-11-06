@@ -1,7 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Index from "../pages/beranda/Index.vue"
 import Profil from "../pages/profil/Index.vue"
-import store from '../stores';
+import Konversi from "../pages/konversi/Index.vue"
+import { useMenuStore } from "../stores/menu"
 
 const routes = [
     {
@@ -10,6 +11,14 @@ const routes = [
         name:'beranda',
         meta:{
             title: 'Beranda'
+        }
+    },
+    {
+        path:'/konversi',
+        component:Konversi,
+        name:'konversi',
+        meta:{
+            title: 'konversi'
         }
     },
     {
@@ -28,7 +37,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    store.state.menu.active = to.name
+    const menu = useMenuStore()
+    menu.active = to.name
     next()
 })
 

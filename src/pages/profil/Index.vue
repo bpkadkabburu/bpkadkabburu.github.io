@@ -1,6 +1,6 @@
 <template>
     <div id="profil">
-        <div>
+        <div style="margin-top: 100px;">
             {{params}}
         </div>
     </div>
@@ -8,7 +8,8 @@
 <script>
 export default{
     data:() => ({
-        params:''
+        params:'',
+        split: 3
     }),
     created() {
         this.$watch(
