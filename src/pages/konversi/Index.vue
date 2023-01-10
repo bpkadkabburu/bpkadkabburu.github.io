@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 mb-2">
-                <label for="bilangan">Bilangan</label>
+                <label for="bilangan" class="form-label">Bilangan</label>
                 <input type="text" class="form-control" v-model="bilangan" @keyup="convert()">
             </div>
             <div class="col-sm-12 mb-1">
