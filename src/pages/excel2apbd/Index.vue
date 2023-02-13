@@ -34,10 +34,19 @@ import angkaTerbilang from '@develoka/angka-terbilang-js';
 export default{
     data:() => ({
         converted:false,
-        fileJson: Object,
-        fileNewJson: Object
+        fileJson: {},
+        fileNewJson: {},
+        inc: 0,
+        huruf: 97,
+        temp: [],
+        pasal: 1,
     }),
     methods:{
+        resetCounter(){
+            this.inc = 0
+            this.huruf = 97
+            this.temp = []
+        },
         async convert(e){
             this.converted = true
             const xlf = e.target.files[0]
@@ -50,22 +59,62 @@ export default{
                     return d
                 }
             }).map((d) => {
-                let pureNumber = d.jumlah
+                let pureNumber = parseInt(d.jumlah)
                 let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
                 format = format.replace("Rp", "Rp.")
+                let isNegatif = format.startsWith('-')
+                if(isNegatif){
+                    pureNumber *= -1
+                    format = format.replace("-Rp.", "Rp. (") + ")"
+                }
                 let terbilang = angkaTerbilang(pureNumber)
                 terbilang = `${format} (${terbilang.charAt(0).toUpperCase()}${terbilang.slice(1)} rupiah)`
                 let kode = d.kode + ""
+                let panjang = kode.length
+                let induk = 0
+                if(panjang !== 1){
+                    if(panjang === 3){
+                        induk = kode.substring(0,1)
+                    }else if(panjang === 6){
+                        induk = kode.substring(0, 3)
+                    }else if(panjang === 9){
+                        induk = kode.substring(0, 6)
+                    }else if(panjang === 12){
+                        induk = kode.substring(0, 9)
+                    }
+                }
                 return {
+                    'induk': induk,
                     'kode': d.kode,
-                    'panjang': kode.length,
+                    'panjang': panjang,
                     'uraian': d.uraian,
                     'jumlah': d.jumlah,
                     'terbilang': terbilang
                 }
             })
+
+            let result = newData.filter((d) => {
+                if(d.panjang !== 12){
+                    return d
+                }
+            })
+
+            for (let index = 0; index < result.length; index++) {
+                const element = result[index];
+                element.children = []
+                let filter = newData.filter(d => {
+                    if(d.induk == element.kode){
+                        return d
+                    }
+                })
+
+                let deepCopy = JSON.parse(JSON.stringify(filter))
+
+                element.children.push(...deepCopy)
+            }
+
             this.fileJson = data
-            this.fileNewJson = newData
+            this.fileNewJson = result
             this.converted = false
         }
     }
