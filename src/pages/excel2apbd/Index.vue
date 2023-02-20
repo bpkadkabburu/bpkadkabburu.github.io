@@ -14,14 +14,10 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <pre>
-                            {{ fileJson }}
-                        </pre>
+                        <vue-json-pretty :data="fileJson" />
                     </div>
                     <div class="col-md-6">
-                        <pre>
-                            {{ fileNewJson }}
-                        </pre>
+                        <vue-json-pretty :data="fileNewJson" />
                     </div>
                 </div>               
             </div>
@@ -31,6 +27,8 @@
 <script>
 import { read, utils } from "xlsx";
 import angkaTerbilang from '@develoka/angka-terbilang-js';
+import VueJsonPretty from 'vue-json-pretty';
+import 'vue-json-pretty/lib/styles.css';
 export default{
     data:() => ({
         converted:false,
@@ -41,6 +39,9 @@ export default{
         temp: [],
         pasal: 1,
     }),
+    components: {
+        VueJsonPretty,
+    },
     methods:{
         resetCounter(){
             this.inc = 0
@@ -93,8 +94,10 @@ export default{
                 }
             })
 
+            let pasal = 3
             let result = newData.filter((d) => {
                 if(d.panjang !== 12){
+                    d.pasal = pasal++
                     return d
                 }
             })
@@ -106,6 +109,31 @@ export default{
                     if(d.induk == element.kode){
                         return d
                     }
+                })
+
+                filter.map((d, i) => {
+                    if(filter.length !== 1){
+                        d.huruf = String.fromCharCode((97 + i))
+                        d.ayat = i + 2
+                    } else {
+                        d.huruf = 0
+                        d.ayat = 0
+                    }
+                    d.pasalSebelum = element.pasal
+                    if(d.panjang === 3){
+                        if (d.ayat === 0) {
+                            d.dimaksud = `Pasal ${d.pasalSebelum}`
+                        } else {
+                            d.dimaksud = `Pasal ${d.pasalSebelum} huruf ${d.huruf}`
+                        }
+                    } else {
+                        if(d.ayat === 0){
+                            d.dimaksud = `Pasal ${d.pasalSebelum}`
+                        } else {
+                            d.dimaksud = `Pasal ${d.pasalSebelum} ayat (${d.ayat})`
+                        }
+                    }
+                    return d
                 })
 
                 let deepCopy = JSON.parse(JSON.stringify(filter))

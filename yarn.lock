@@ -1846,6 +1846,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-json-pretty@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "vue-json-pretty@npm:2.2.3"
+  peerDependencies:
+    vue: ">=3.0.0"
+  checksum: 7dce9a9b4e3ef86536de864196aff22c0bb6167777db9e8e8514ba627b9bab6807418500bf0581b15f0e0935f6b43118900cea46897c4f5be18a1f816521bb47
+  languageName: node
+  linkType: hard
+
 "vue-router@npm:^4.1.6":
   version: 4.1.6
   resolution: "vue-router@npm:4.1.6"
@@ -1885,6 +1894,7 @@ __metadata:
     sass: ^1.57.1
     vite: ^4.0.4
     vue: ^3.2.45
+    vue-json-pretty: ^2.2.3
     vue-router: ^4.1.6
     xlsx: "https://cdn.sheetjs.com/xlsx-0.19.1/xlsx-0.19.1.tgz"
   languageName: unknown
