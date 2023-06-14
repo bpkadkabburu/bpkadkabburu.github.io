@@ -48,7 +48,7 @@ export default{
             this.huruf = 97
             this.temp = []
         },
-        async terbilangAngka(angka){
+        terbilangAngka(angka){
             let pureNumber = parseInt(angka)
             let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
             format = format.replace("Rp", "Rp.")
@@ -59,6 +59,17 @@ export default{
             }
             let terbilang = angkaTerbilang(pureNumber)
             return `${format} (${terbilang.charAt(0).toUpperCase()}${terbilang.slice(1)} rupiah)`
+        },
+        ucwords(mySentence){
+            if(mySentence === mySentence.toUpperCase()){
+                const words = mySentence.toLowerCase().split(" ")
+                
+                return words.map((word) => {
+                    return word[0].toUpperCase() + word.substring(1)
+                }).join(" ");
+            } else {
+                return mySentence
+            }
         },
         async convert(e){
             this.converted = true
@@ -92,7 +103,7 @@ export default{
                     'induk': induk,
                     'kode': d.kode,
                     'panjang': panjang,
-                    'uraian': d.uraian,
+                    'uraian': this.ucwords(d.uraian),
                     'sebelum_perubahan': d.sebelum_perubahan,
                     'sebelum_perubahan_terbilang': sebelum_perubahan_terbilang,
                     'setelah_perubahan': d.setelah_perubahan,
@@ -139,16 +150,29 @@ export default{
                             d.dimaksud = `Pasal ${d.pasalSebelum} ayat (${d.ayat})`
                         }
                     }
+
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}`
+                    
                     return d
                 })
 
                 let deepCopy = JSON.parse(JSON.stringify(filter))
+                
+                deepCopy.map((d, i) => {
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ayat (1) huruf ${d.huruf} direncanakan sebesar ${d.setelah_perubahan_terbilang}`
+                })
 
                 element.children.push(...deepCopy)
             }
 
+            let finalResult = result.filter((d, i) => {
+                if(d.sebelum_perubahan - d.setelah_perubahan != 0){
+                    return d
+                }
+            })
+
             this.fileJson = data
-            this.fileNewJson = result
+            this.fileNewJson = finalResult
             this.converted = false
         }
     }
