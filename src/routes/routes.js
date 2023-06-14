@@ -2,7 +2,8 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Index from "../pages/beranda/Index.vue"
 import Profil from "../pages/profil/Index.vue"
 import Konversi from "../pages/konversi/Index.vue"
-import Excel2apbd from "../pages/excel2apbd/Index.vue"
+import Excel2apbdMurni from "../pages/excel2apbd/Murni.vue"
+import Excel2apbdPerubahan from "../pages/excel2apbd/Perubahan.vue"
 import { useMenuStore } from "../stores/menu"
 
 const routes = [
@@ -31,11 +32,19 @@ const routes = [
         }
     },
     {
-        path:'/excel2apbd',
-        component:Excel2apbd,
-        name:'excel2apbd',
+        path:'/excel2apbd/murni',
+        component:Excel2apbdMurni,
+        name:'excel2apbdmurni',
         meta:{
-            title: 'Excel2apbd'
+            title: 'Excel2APBDMurni'
+        }
+    },
+    {
+        path:'/excel2apbd/perubahan',
+        component:Excel2apbdPerubahan,
+        name:'excel2apbdperubahan',
+        meta:{
+            title: 'Excel2APBDPerubahan'
         }
     },
 ];
