@@ -45,7 +45,6 @@ export default{
     methods:{
         resetCounter(){
             this.inc = 0
-            this.huruf = 97
             this.temp = []
         },
         terbilangAngka(angka){
@@ -111,10 +110,16 @@ export default{
                 }
             })
 
+            // diatas return semua rekening
+
             let pasal = 3
             let result = newData.filter((d) => {
                 if(d.panjang !== 12){
-                    d.pasal = pasal++
+                    if(d.sebelum_perubahan === 0){
+                        d.pasal = `${pasal - 1}A`
+                    } else {
+                        d.pasal = pasal++
+                    }
                     return d
                 }
             })
@@ -168,6 +173,37 @@ export default{
             let finalResult = result.filter((d, i) => {
                 if(d.sebelum_perubahan - d.setelah_perubahan != 0){
                     return d
+                }
+            })
+            
+            finalResult = finalResult.map((d) => {
+                 if (d.children.length === 1) {
+                    let rincian = 'rincian objek';
+                    if (d.panjang === 6) {
+                        rincian = 'objek'
+                    }
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, merupakan ${rincian} ${d.children[0].uraian}`
+                    delete d.children
+                } else {
+                    d.terdiri = d.children.map((c, i) => {
+                        return c.uraian
+                    })
+                    d.kalimatAyat = d.children.map((c, i) => {
+                        return c.kalimat
+                    })
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, terdiri atas:`
+                    delete d.children
+                }
+
+                if(isNaN(d.pasal) && isNaN(d.pasalSebelum)){
+                    d.pasal = d.pasal.replace('A', 'B')
+                }
+
+                return {
+                    pasal:d.pasal,
+                    kalimat:d.kalimat,
+                    terdiri:d.terdiri,
+                    kalimatAyat:d.kalimatAyat
                 }
             })
 
