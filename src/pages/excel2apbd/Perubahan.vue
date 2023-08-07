@@ -155,8 +155,6 @@ export default{
                             d.dimaksud = `Pasal ${d.pasalSebelum} ayat (${d.ayat})`
                         }
                     }
-
-                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}`
                     
                     return d
                 })
@@ -164,7 +162,7 @@ export default{
                 let deepCopy = JSON.parse(JSON.stringify(filter))
                 
                 deepCopy.map((d, i) => {
-                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ayat (1) huruf ${d.huruf} direncanakan sebesar ${d.setelah_perubahan_terbilang}`
+                    d.kalimat = `${d.uraian} sebagaimana dimaksud pada ayat (1) huruf ${d.huruf} direncanakan sebesar ${d.setelah_perubahan_terbilang}`
                 })
 
                 element.children.push(...deepCopy)
@@ -182,7 +180,7 @@ export default{
                     if (d.panjang === 6) {
                         rincian = 'objek'
                     }
-                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, merupakan ${rincian} ${d.children[0].uraian}`
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, merupakan ${rincian} ${d.children[0].uraian}`
                     delete d.children
                 } else {
                     d.terdiri = d.children.map((c, i) => {
@@ -191,7 +189,7 @@ export default{
                     d.kalimatAyat = d.children.map((c, i) => {
                         return c.kalimat
                     })
-                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, terdiri atas:`
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ${d.dimaksud} direncanakan sebesar ${d.setelah_perubahan_terbilang}, terdiri atas:`
                     delete d.children
                 }
 
