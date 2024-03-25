@@ -174,7 +174,7 @@ export default{
                 }
             })
             
-            finalResult = finalResult.map((d) => {
+            finalResult = finalResult.map((d) => {  
                  if (d.children.length === 1) {
                     let rincian = 'rincian objek';
                     if (d.panjang === 6) {

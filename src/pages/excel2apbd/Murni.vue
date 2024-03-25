@@ -45,8 +45,30 @@ export default{
     methods:{
         resetCounter(){
             this.inc = 0
-            this.huruf = 97
             this.temp = []
+        },
+        terbilangAngka(angka) {
+            let pureNumber = parseInt(angka)
+            let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
+            format = format.replace("Rp", "Rp.")
+            let isNegatif = format.startsWith('-')
+            if (isNegatif) {
+                pureNumber *= -1
+                format = format.replace("-Rp.", "Rp. (") + ")"
+            }
+            let terbilang = angkaTerbilang(pureNumber)
+            return `${format} (${terbilang.charAt(0).toUpperCase()}${terbilang.slice(1)} rupiah)`
+        },
+        ucwords(mySentence) {
+            if (mySentence === mySentence.toUpperCase()) {
+                const words = mySentence.toLowerCase().split(" ")
+
+                return words.map((word) => {
+                    return word[0].toUpperCase() + word.substring(1)
+                }).join(" ");
+            } else {
+                return mySentence
+            }
         },
         async convert(e){
             this.converted = true
@@ -60,22 +82,13 @@ export default{
                     return d
                 }
             }).map((d) => {
-                let pureNumber = parseInt(d.jumlah)
-                let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
-                format = format.replace("Rp", "Rp.")
-                let isNegatif = format.startsWith('-')
-                if(isNegatif){
-                    pureNumber *= -1
-                    format = format.replace("-Rp.", "Rp. (") + ")"
-                }
-                let terbilang = angkaTerbilang(pureNumber)
-                terbilang = `${format} (${terbilang.charAt(0).toUpperCase()}${terbilang.slice(1)} rupiah)`
+                let jumlah_terbilang = this.terbilangAngka(d.jumlah)
                 let kode = d.kode + ""
                 let panjang = kode.length
                 let induk = 0
                 if(panjang !== 1){
                     if(panjang === 3){
-                        induk = kode.substring(0,1)
+                        induk = kode.substring(0, 1)
                     }else if(panjang === 6){
                         induk = kode.substring(0, 3)
                     }else if(panjang === 9){
@@ -88,9 +101,9 @@ export default{
                     'induk': induk,
                     'kode': d.kode,
                     'panjang': panjang,
-                    'uraian': d.uraian,
+                    'uraian': this.ucwords(d.uraian),
                     'jumlah': d.jumlah,
-                    'terbilang': terbilang
+                    'jumlah_terbilang': jumlah_terbilang
                 }
             })
 
@@ -138,8 +151,43 @@ export default{
 
                 let deepCopy = JSON.parse(JSON.stringify(filter))
 
+                deepCopy.map((d, i) => {
+                    d.kalimat = `${d.uraian} sebagaimana dimaksud pada ayat (1) huruf ${d.huruf} direncanakan sebesar ${d.jumlah_terbilang}`
+                })
+
                 element.children.push(...deepCopy)
             }
+
+            result = result.map((d) => {
+                if (d.children.length === 1) {
+                    let rincian = 'rincian objek';
+                    if (d.panjang === 6) {
+                        rincian = 'objek'
+                    }
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ${d.dimaksud} direncanakan sebesar ${d.jumlah_terbilang}, merupakan ${rincian} ${d.children[0].uraian}`
+                    delete d.children
+                } else {
+                    d.terdiri = d.children.map((c, i) => {
+                        return c.uraian
+                    })
+                    d.kalimatAyat = d.children.map((c, i) => {
+                        return c.kalimat
+                    })
+                    d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ${d.dimaksud} direncanakan sebesar ${d.jumlah_terbilang}, terdiri atas:`
+                    delete d.children
+                }
+
+                if (isNaN(d.pasal) && isNaN(d.pasalSebelum)) {
+                    d.pasal = d.pasal.replace('A', 'B')
+                }
+
+                return {
+                    pasal: d.pasal,
+                    kalimat: d.kalimat,
+                    terdiri: d.terdiri,
+                    kalimatAyat: d.kalimatAyat
+                }
+            })
 
             this.fileJson = data
             this.fileNewJson = result
