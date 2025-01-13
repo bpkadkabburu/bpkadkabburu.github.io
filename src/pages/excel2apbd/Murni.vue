@@ -48,7 +48,7 @@ export default{
             this.temp = []
         },
         terbilangAngka(angka) {
-            let pureNumber = parseInt(angka)
+            let pureNumber = String(angka)
             let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
             format = format.replace("Rp", "Rp.")
             let isNegatif = format.startsWith('-')
@@ -79,6 +79,7 @@ export default{
             let newData = data.filter((d) => {
                 let kode = d.kode + ""
                 if(kode.length !== 17){
+                    console.log(d)
                     return d
                 }
             }).map((d) => {

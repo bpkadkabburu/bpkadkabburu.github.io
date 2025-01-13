@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 mb-2">
-                <label class="form-label" for="excel-file">Excel File</label>
+                <label class="form-label" for="excel-file">Excel / JSON File</label>
                 <input class="form-control" type="file" name="excelapbd" id="excelapbd" @change="convert">
             </div>
             <div class="col-sm-12 mb-1">
@@ -48,7 +48,8 @@ export default{
             this.temp = []
         },
         terbilangAngka(angka){
-            let pureNumber = parseInt(angka)
+            console.log(angka)
+            let pureNumber = String(angka)
             let format = Intl.NumberFormat('id-ID', { style: "currency", currency: "IDR" }).format(pureNumber)
             format = format.replace("Rp", "Rp.")
             let isNegatif = format.startsWith('-')
@@ -56,7 +57,7 @@ export default{
                 pureNumber *= -1
                 format = format.replace("-Rp.", "Rp. (") + ")"
             }
-            let terbilang = angkaTerbilang(pureNumber)
+            let terbilang = angkaTerbilang(angka)
             return `${format} (${terbilang.charAt(0).toUpperCase()}${terbilang.slice(1)} rupiah)`
         },
         ucwords(mySentence){
@@ -72,10 +73,37 @@ export default{
         },
         async convert(e){
             this.converted = true
-            const xlf = e.target.files[0]
-            const xlb = await xlf.arrayBuffer()
-            const wb = read(xlb)
-            let data = utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+            const file = e.target.files[0]
+            let data = []
+            if(file.type === 'application/json'){
+                console.log('json');
+
+                // Gunakan Promise untuk menunggu FileReader selesai
+                data = await new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+                    
+                    fileReader.onload = function(event) {
+                        try {
+                            const fileContent = event.target.result;
+                            resolve(JSON.parse(fileContent)); // Resolve dengan data JSON
+                        } catch (error) {
+                            reject("Error parsing JSON: " + error);
+                        }
+                    };
+
+                    fileReader.onerror = function() {
+                        reject("Error reading file");
+                    };
+
+                    fileReader.readAsText(file);
+                });
+            } else {
+                console.log('xlsx')
+                const xlb = await file.arrayBuffer()
+                const wb = read(xlb)
+                data = utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+            }
+            
             let newData = data.filter((d) => {
                 let kode = d.kode + ""
                 if(kode.length !== 17){
