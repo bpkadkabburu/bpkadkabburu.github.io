@@ -162,7 +162,9 @@ export default{
             result = result.map((d) => {
                 if (d.children.length === 1) {
                     let rincian = 'rincian objek';
-                    if (d.panjang === 6) {
+                    if (d.panjang === 3) {
+                        rincian = 'jenis'
+                    } else if (d.panjang === 6) {
                         rincian = 'objek'
                     }
                     d.kalimat = `Anggaran ${d.uraian} sebagaimana dimaksud pada ${d.dimaksud} direncanakan sebesar ${d.jumlah_terbilang}, merupakan ${rincian} ${d.children[0].uraian}`
