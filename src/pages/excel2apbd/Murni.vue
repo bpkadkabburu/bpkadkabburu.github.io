@@ -78,8 +78,7 @@ export default{
             let data = utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
             let newData = data.filter((d) => {
                 let kode = d.kode + ""
-                if(kode.length !== 17){
-                    console.log(d)
+                if(kode.length !== 17 && kode.length !== 19){
                     return d
                 }
             }).map((d) => {
@@ -94,7 +93,7 @@ export default{
                         induk = kode.substring(0, 3)
                     }else if(panjang === 9){
                         induk = kode.substring(0, 6)
-                    }else if(panjang === 12){
+                    }else if(panjang === 12 || panjang === 13){
                         induk = kode.substring(0, 9)
                     }
                 }
@@ -110,7 +109,7 @@ export default{
 
             let pasal = 3
             let result = newData.filter((d) => {
-                if(d.panjang !== 12){
+                if(d.panjang !== 12 && d.panjang !== 13){
                     d.pasal = pasal++
                     return d
                 }

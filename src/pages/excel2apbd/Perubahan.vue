@@ -106,7 +106,7 @@ export default{
             
             let newData = data.filter((d) => {
                 let kode = d.kode + ""
-                if(kode.length !== 17){
+                if(kode.length !== 17 && kode.length !== 19){
                     return d
                 }
             }).map((d) => {
@@ -117,12 +117,12 @@ export default{
                 let induk = 0
                 if(panjang !== 1){
                     if(panjang === 3){
-                        induk = kode.substring(0,1)
+                        induk = kode.substring(0, 1)
                     }else if(panjang === 6){
                         induk = kode.substring(0, 3)
                     }else if(panjang === 9){
                         induk = kode.substring(0, 6)
-                    }else if(panjang === 12){
+                    }else if(panjang === 12 || panjang === 13){
                         induk = kode.substring(0, 9)
                     }
                 }
@@ -138,11 +138,13 @@ export default{
                 }
             })
 
+            console.log(newData)
+
             // diatas return semua rekening
 
             let pasal = 3
             let result = newData.filter((d) => {
-                if(d.panjang !== 12){
+                if(d.panjang !== 12 && d.panjang !== 13){
                     if(d.sebelum_perubahan === 0){
                         d.pasal = `${pasal - 1}A`
                     } else {
